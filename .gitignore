@@ -1,0 +1,4 @@
+/release/
+/drone-github-comment*
+
+coverage.out
