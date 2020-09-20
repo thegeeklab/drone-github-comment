@@ -1,4 +1,4 @@
-module github.com/xoxys/drone-github-comment
+module github.com/thegeeklab/drone-github-comment
 
 go 1.14
 

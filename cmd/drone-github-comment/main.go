@@ -7,7 +7,7 @@ import (
 	"github.com/drone-plugins/drone-plugin-lib/urfave"
 	"github.com/joho/godotenv"
 	"github.com/urfave/cli/v2"
-	"github.com/xoxys/drone-github-comment/plugin"
+	"github.com/thegeeklab/drone-github-comment/plugin"
 )
 
 var version = "unknown"

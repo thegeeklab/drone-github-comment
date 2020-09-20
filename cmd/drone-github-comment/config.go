@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/urfave/cli/v2"
-	"github.com/xoxys/drone-github-comment/plugin"
+	"github.com/thegeeklab/drone-github-comment/plugin"
 )
 
 // settingsFlags has the cli.Flags for the plugin.Settings.
