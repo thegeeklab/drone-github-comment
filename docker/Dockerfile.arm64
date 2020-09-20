@@ -5,5 +5,5 @@ LABEL maintainer="Robert Kaussow <mail@thegeeklab.de>" \
     org.label-schema.vendor="Robert Kaussow" \
     org.label-schema.schema-version="1.0"
 
-ADD release/drone-github-comment /bin/
+ADD release/arm64/drone-github-comment /bin/
 ENTRYPOINT [ "/bin/drone-github-comment" ]

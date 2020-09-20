@@ -70,6 +70,56 @@ local PipelineTest = {
   },
 };
 
+
+local PipelineBuildBinaries = {
+  kind: 'pipeline',
+  name: 'build-binaries',
+  platform: {
+    os: 'linux',
+    arch: 'amd64',
+  },
+  steps: [
+    {
+      name: 'build',
+      image: 'techknowlogick/xgo:latest',
+      commands: [
+        '[ -z "${DRONE_TAG}" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}',
+        "xgo -ldflags \"-s -w -X main.Version=$BUILD_VERSION\" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' -out /drone/src/release/drone-github-comment ./cmd/drone-github-comment",
+        'tree',
+      ],
+    },
+    {
+      name: 'executable',
+      image: 'alpine',
+      commands: [
+        '$(find release/ -executable -type f | grep drone-github-comment-linux-amd64) --help',
+      ],
+    },
+    {
+      name: 'compress',
+      image: 'alpine',
+      commands: [
+        'apk add upx',
+        'find release/ -maxdepth 1 -executable -type f -exec upx {} ;',
+        'ls -lh release/',
+      ],
+    },
+    {
+      name: 'checksum',
+      image: 'alpine',
+      commands: [
+        'cd release/ && sha256sum * > sha256sum.txt',
+      ],
+    },
+  ],
+  depends_on: [
+    'test',
+  ],
+  trigger: {
+    ref: ['refs/heads/master', 'refs/tags/**', 'refs/pull/**'],
+  },
+};
+
 local PipelineBuildContainer(arch='amd64') = {
   kind: 'pipeline',
   name: 'build-container-' + arch,
@@ -82,7 +132,7 @@ local PipelineBuildContainer(arch='amd64') = {
       name: 'build',
       image: 'golang:1.14',
       commands: [
-        'go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/drone-github-comment ./cmd/drone-github-comment',
+        'go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/' + arch + 'drone-github-comment ./cmd/drone-github-comment',
       ],
     },
     {
@@ -90,7 +140,7 @@ local PipelineBuildContainer(arch='amd64') = {
       image: 'plugins/docker:18-linux-' + arch,
       settings: {
         dry_run: true,
-        dockerfile: 'docker/Dockerfile',
+        dockerfile: 'docker/Dockerfile.' + arch,
         repo: 'thegeeklab/${DRONE_REPO_NAME}',
         username: { from_secret: 'docker_username' },
         password: { from_secret: 'docker_password' },
@@ -106,7 +156,7 @@ local PipelineBuildContainer(arch='amd64') = {
       settings: {
         auto_tag: true,
         auto_tag_suffix: arch,
-        dockerfile: 'docker/Dockerfile',
+        dockerfile: 'docker/Dockerfile.' + arch,
         repo: 'thegeeklab/${DRONE_REPO_NAME}',
         username: { from_secret: 'docker_username' },
         password: { from_secret: 'docker_password' },
@@ -135,7 +185,7 @@ local PipelineBuildContainer(arch='amd64') = {
     },
   ],
   depends_on: [
-    'test',
+    'build-binaries',
   ],
   trigger: {
     ref: ['refs/heads/master', 'refs/tags/**', 'refs/pull/**'],
@@ -240,6 +290,7 @@ local PipelineNotifications = {
 
 [
   PipelineTest,
+  PipelineBuildBinaries,
   PipelineBuildContainer(arch='amd64'),
   PipelineBuildContainer(arch='arm64'),
   PipelineBuildContainer(arch='arm'),
