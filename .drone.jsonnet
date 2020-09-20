@@ -102,7 +102,7 @@ local PipelineBuildBinaries = {
       image: 'alpine',
       commands: [
         'apk add upx',
-        'find release/ -maxdepth 1 -executable -type f -exec upx {} ;',
+        'find release/ -maxdepth 1 -executable -type f -exec upx {} \\;',
         'ls -lh release/',
       ],
     },

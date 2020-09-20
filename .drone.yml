@@ -76,7 +76,7 @@ steps:
   image: alpine
   commands:
   - apk add upx
-  - find release/ -maxdepth 1 -executable -type f -exec upx {} ;
+  - find release/ -maxdepth 1 -executable -type f -exec upx {} \;
   - ls -lh release/
 
 - name: checksum
@@ -416,6 +416,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: e39c311c9112476acd3c980340474969a5ea27720867d85bce0dc63f5307569d
+hmac: 14cc8682d5c27ee5548f9596f5778b82f331b5c2d5e2a816b874ae7682524335
 
 ...
