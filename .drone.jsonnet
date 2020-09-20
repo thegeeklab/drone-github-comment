@@ -83,7 +83,7 @@ local PipelineBuildBinaries = {
       name: 'build',
       image: 'techknowlogick/xgo:go-1.14.x',
       commands: [
-        '[ -z "$${DRONE_TAG}" ] && BUILD_VERSION=$${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=$${DRONE_TAG##v}',
+        '[ -z "${DRONE_TAG}" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}',
         'mkdir -p release/',
         "cd cmd/drone-github-comment && xgo -ldflags \"-s -w -X main.Version=$$BUILD_VERSION\" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' -out drone-github-comment .",
         'mv /build/* /drone/src/release/',

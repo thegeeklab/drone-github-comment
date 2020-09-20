@@ -61,7 +61,7 @@ steps:
 - name: build
   image: techknowlogick/xgo:go-1.14.x
   commands:
-  - "[ -z \"$${DRONE_TAG}\" ] && BUILD_VERSION=$${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=$${DRONE_TAG##v}"
+  - "[ -z \"${DRONE_TAG}\" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}"
   - mkdir -p release/
   - cd cmd/drone-github-comment && xgo -ldflags "-s -w -X main.Version=$$BUILD_VERSION" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' -out drone-github-comment .
   - mv /build/* /drone/src/release/
@@ -429,6 +429,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 0d83e319e617c570b761092c701b6b7a12607fcde2fcff0e007f536c8e11c6c0
+hmac: 95c46cb9e02b2d4ac12e9048a2fbcfd24ec13a69675dbcd8dfce12791de6c9db
 
 ...
