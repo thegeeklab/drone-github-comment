@@ -61,7 +61,7 @@ steps:
 - name: build
   image: golang:1.14
   commands:
-  - go build -v -ldflags "-X main.version=${DRONE_TAG:-devel}" -a -tags netgo -o release/drone-github-comment ./cmd/drone-github-comment
+  - go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
   image: plugins/docker:18-linux-amd64
@@ -137,7 +137,7 @@ steps:
 - name: build
   image: golang:1.14
   commands:
-  - go build -v -ldflags "-X main.version=${DRONE_TAG:-devel}" -a -tags netgo -o release/drone-github-comment ./cmd/drone-github-comment
+  - go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
   image: plugins/docker:18-linux-arm64
@@ -213,7 +213,7 @@ steps:
 - name: build
   image: golang:1.14
   commands:
-  - go build -v -ldflags "-X main.version=${DRONE_TAG:-devel}" -a -tags netgo -o release/drone-github-comment ./cmd/drone-github-comment
+  - go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
   image: plugins/docker:18-linux-arm
@@ -373,6 +373,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: fa46849990e44b936857644dc55ffdc93704b2fda813878573f43640dc3d2600
+hmac: a082ae36a906ec50e97966c07586d881c0430d4f48d2a14642dc388817e5533f
 
 ...

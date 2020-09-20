@@ -82,7 +82,7 @@ local PipelineBuildContainer(arch='amd64') = {
       name: 'build',
       image: 'golang:1.14',
       commands: [
-        'go build -v -ldflags "-X main.version=${DRONE_TAG:-devel}" -a -tags netgo -o release/drone-github-comment ./cmd/drone-github-comment',
+        'go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/drone-github-comment ./cmd/drone-github-comment',
       ],
     },
     {
