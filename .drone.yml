@@ -68,7 +68,7 @@ steps:
   commands:
   - "[ -z \"${DRONE_TAG}\" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}"
   - mkdir -p release/
-  - xgo -ldflags "-s -w -X main.Version=$BUILD_VERSION" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' ./cmd/drone-github-comment
+  - cd cmd/drone-github-comment && xgo -ldflags "-s -w -X main.Version=$BUILD_VERSION" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' .
   - mv /build/* /drone/src/release/
   - tree
 
@@ -111,7 +111,7 @@ steps:
   pull: always
   image: golang:1.14
   commands:
-  - go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/amd64drone-github-comment ./cmd/drone-github-comment
+  - go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/amd64/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
   pull: always
@@ -191,7 +191,7 @@ steps:
   pull: always
   image: golang:1.14
   commands:
-  - go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/arm64drone-github-comment ./cmd/drone-github-comment
+  - go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/arm64/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
   pull: always
@@ -271,7 +271,7 @@ steps:
   pull: always
   image: golang:1.14
   commands:
-  - go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/armdrone-github-comment ./cmd/drone-github-comment
+  - go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/arm/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
   pull: always
@@ -428,12 +428,13 @@ trigger:
   - failure
 
 depends_on:
+- build-binaries
 - build-container-amd64
 - build-container-arm
 - build-container-arm64
 
 ---
 kind: signature
-hmac: a350a628573852e696deeb7ac9b68f4e4dd913c8276e4a50dd66ccfdd1c87531
+hmac: 0d007f57486ff2d02d96a19946151cd30a3418d5d24f251728383580bfd4e720
 
 ...
