@@ -85,7 +85,7 @@ local PipelineBuildBinaries = {
       commands: [
         '[ -z "${DRONE_TAG}" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}',
         'mkdir -p release/',
-        "cd cmd/drone-github-comment && xgo -ldflags \"-s -w -X main.Version=$$BUILD_VERSION\" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' -out drone-github-comment .",
+        "cd cmd/drone-github-comment && xgo -ldflags \"-s -w -X main.version=$BUILD_VERSION\" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' -out drone-github-comment .",
         'mv /build/* /drone/src/release/',
       ],
     },
@@ -151,7 +151,8 @@ local PipelineBuildContainer(arch='amd64') = {
       name: 'build',
       image: 'golang:1.14',
       commands: [
-        'go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/' + arch + '/drone-github-comment ./cmd/drone-github-comment',
+        '[ -z "${DRONE_TAG}" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}',
+        'go build -v -ldflags "-X main.version=$BUILD_VERSION" -a -tags netgo -o release/' + arch + '/drone-github-comment ./cmd/drone-github-comment',
       ],
     },
     {
