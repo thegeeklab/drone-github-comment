@@ -70,7 +70,7 @@ steps:
     dry_run: true
     password:
       from_secret: docker_password
-    repo: xoxys/${DRONE_REPO_NAME}
+    repo: thegeeklab/${DRONE_REPO_NAME}
     username:
       from_secret: docker_username
   when:
@@ -87,7 +87,7 @@ steps:
     dockerfile: docker/Dockerfile
     password:
       from_secret: docker_password
-    repo: xoxys/${DRONE_REPO_NAME}
+    repo: thegeeklab/${DRONE_REPO_NAME}
     username:
       from_secret: docker_username
   when:
@@ -146,7 +146,7 @@ steps:
     dry_run: true
     password:
       from_secret: docker_password
-    repo: xoxys/${DRONE_REPO_NAME}
+    repo: thegeeklab/${DRONE_REPO_NAME}
     username:
       from_secret: docker_username
   when:
@@ -163,7 +163,7 @@ steps:
     dockerfile: docker/Dockerfile
     password:
       from_secret: docker_password
-    repo: xoxys/${DRONE_REPO_NAME}
+    repo: thegeeklab/${DRONE_REPO_NAME}
     username:
       from_secret: docker_username
   when:
@@ -222,7 +222,7 @@ steps:
     dry_run: true
     password:
       from_secret: docker_password
-    repo: xoxys/${DRONE_REPO_NAME}
+    repo: thegeeklab/${DRONE_REPO_NAME}
     username:
       from_secret: docker_username
   when:
@@ -239,7 +239,7 @@ steps:
     dockerfile: docker/Dockerfile
     password:
       from_secret: docker_password
-    repo: xoxys/${DRONE_REPO_NAME}
+    repo: thegeeklab/${DRONE_REPO_NAME}
     username:
       from_secret: docker_username
   when:
@@ -324,7 +324,7 @@ steps:
       from_secret: docker_username
     PUSHRM_FILE: README.md
     PUSHRM_SHORT: Drone CI - Plugin to add comments to GitHub Issues/PRs
-    PUSHRM_TARGET: xoxys/${DRONE_REPO_NAME}
+    PUSHRM_TARGET: thegeeklab/${DRONE_REPO_NAME}
   when:
     status:
     - success
@@ -373,6 +373,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: a082ae36a906ec50e97966c07586d881c0430d4f48d2a14642dc388817e5533f
+hmac: 49ac4d5dbe243dec7b576714870117cb0c4a1faef2cdaa1f2202464b0229727a
 
 ...

@@ -91,7 +91,7 @@ local PipelineBuildContainer(arch='amd64') = {
       settings: {
         dry_run: true,
         dockerfile: 'docker/Dockerfile',
-        repo: 'xoxys/${DRONE_REPO_NAME}',
+        repo: 'thegeeklab/${DRONE_REPO_NAME}',
         username: { from_secret: 'docker_username' },
         password: { from_secret: 'docker_password' },
       },
@@ -107,7 +107,7 @@ local PipelineBuildContainer(arch='amd64') = {
         auto_tag: true,
         auto_tag_suffix: arch,
         dockerfile: 'docker/Dockerfile',
-        repo: 'xoxys/${DRONE_REPO_NAME}',
+        repo: 'thegeeklab/${DRONE_REPO_NAME}',
         username: { from_secret: 'docker_username' },
         password: { from_secret: 'docker_password' },
       },
@@ -191,7 +191,7 @@ local PipelineNotifications = {
         },
         PUSHRM_FILE: 'README.md',
         PUSHRM_SHORT: 'Drone CI - Plugin to add comments to GitHub Issues/PRs',
-        PUSHRM_TARGET: 'xoxys/${DRONE_REPO_NAME}',
+        PUSHRM_TARGET: 'thegeeklab/${DRONE_REPO_NAME}',
       },
       when: {
         status: ['success'],
