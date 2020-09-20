@@ -91,7 +91,7 @@ local PipelineBuildBinaries = {
         '[ -z "${DRONE_TAG}" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}',
         'mkdir -p release/',
         "cd cmd/drone-github-comment && xgo -ldflags \"-s -w -X main.Version=$BUILD_VERSION\" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' .",
-        'tree',
+        'ls -la',
         'mv /build/* /drone/src/release/',
       ],
     },
@@ -183,7 +183,7 @@ local PipelineBuildContainer(arch='amd64') = {
       settings: {
         auto_tag: true,
         auto_tag_suffix: arch,
-        dockerfile: 'docker/Dockerfile',
+        dockerfile: 'docker/Dockerfile.' + arch,
         registry: 'quay.io',
         repo: 'quay.io/thegeeklab/${DRONE_REPO_NAME}',
         username: { from_secret: 'quay_username' },

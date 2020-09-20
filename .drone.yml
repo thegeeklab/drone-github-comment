@@ -69,7 +69,7 @@ steps:
   - "[ -z \"${DRONE_TAG}\" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}"
   - mkdir -p release/
   - cd cmd/drone-github-comment && xgo -ldflags "-s -w -X main.Version=$BUILD_VERSION" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' .
-  - tree
+  - ls -la
   - mv /build/* /drone/src/release/
 
 - name: executable
@@ -155,7 +155,7 @@ steps:
   settings:
     auto_tag: true
     auto_tag_suffix: amd64
-    dockerfile: docker/Dockerfile
+    dockerfile: docker/Dockerfile.amd64
     password:
       from_secret: quay_password
     registry: quay.io
@@ -235,7 +235,7 @@ steps:
   settings:
     auto_tag: true
     auto_tag_suffix: arm64
-    dockerfile: docker/Dockerfile
+    dockerfile: docker/Dockerfile.arm64
     password:
       from_secret: quay_password
     registry: quay.io
@@ -315,7 +315,7 @@ steps:
   settings:
     auto_tag: true
     auto_tag_suffix: arm
-    dockerfile: docker/Dockerfile
+    dockerfile: docker/Dockerfile.arm
     password:
       from_secret: quay_password
     registry: quay.io
@@ -435,6 +435,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 647ad7d045ea85060bb354182833731c0c0485344c02805fd282faaa081001d5
+hmac: 847a87a07a8ac845a12e2ad3c7ec3b6907c54e63b6dc3faf6313b4cc5ca422f2
 
 ...
