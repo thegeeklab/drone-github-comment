@@ -69,7 +69,8 @@ steps:
   - "[ -z \"${DRONE_TAG}\" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}"
   - mkdir -p release/
   - cd cmd/drone-github-comment && xgo -ldflags "-s -w -X main.Version=$BUILD_VERSION" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' .
-  - ls -la
+  - ls -la /drone/src
+  - ls -la /build*
   - mv /build/* /drone/src/release/
 
 - name: executable
@@ -435,6 +436,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 847a87a07a8ac845a12e2ad3c7ec3b6907c54e63b6dc3faf6313b4cc5ca422f2
+hmac: eac62dee32972ee5ccf29b0f59700da46bbc1837499f212669a39541527e22a4
 
 ...
