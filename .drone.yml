@@ -61,10 +61,9 @@ steps:
 - name: build
   image: techknowlogick/xgo:go-1.14.x
   commands:
-  - "[ -z \"${DRONE_TAG}\" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}"
+  - "[ -z \"$${DRONE_TAG}\" ] && BUILD_VERSION=$${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=$${DRONE_TAG##v}"
   - mkdir -p release/
-  - cd cmd/drone-github-comment && xgo -ldflags "-s -w -X main.Version=$BUILD_VERSION" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' -out drone-github-comment .
-  - ls -la /build/
+  - cd cmd/drone-github-comment && xgo -ldflags "-s -w -X main.Version=$$BUILD_VERSION" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' -out drone-github-comment .
   - mv /build/* /drone/src/release/
 
 - name: executable
@@ -83,6 +82,20 @@ steps:
   image: alpine
   commands:
   - cd release/ && sha256sum * > sha256sum.txt
+
+- name: publish
+  image: plugins/github-release
+  settings:
+    api_key:
+      from_secret: github_token
+    files:
+    - release/*
+    note: CHANGELOG.md
+    overwrite: true
+    title: ${DRONE_TAG}
+  when:
+    ref:
+    - refs/tags/**
 
 trigger:
   ref:
@@ -366,7 +379,7 @@ steps:
     DOCKER_USER:
       from_secret: docker_username
     PUSHRM_FILE: README.md
-    PUSHRM_SHORT: Drone CI - Plugin to add comments to GitHub Issues/PRs
+    PUSHRM_SHORT: GitHub Comment - Drone plugin to add comments to GitHub Issues/PRs
     PUSHRM_TARGET: thegeeklab/${DRONE_REPO_NAME}
   when:
     status:
@@ -416,6 +429,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 14cc8682d5c27ee5548f9596f5778b82f331b5c2d5e2a816b874ae7682524335
+hmac: 0d83e319e617c570b761092c701b6b7a12607fcde2fcff0e007f536c8e11c6c0
 
 ...
