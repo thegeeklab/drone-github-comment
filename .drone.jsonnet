@@ -9,7 +9,6 @@ local PipelineTest = {
     {
       name: 'staticcheck',
       image: 'golang:1.14',
-      pull: 'always',
       commands: [
         'go run honnef.co/go/tools/cmd/staticcheck ./...',
       ],
@@ -23,7 +22,6 @@ local PipelineTest = {
     {
       name: 'lint',
       image: 'golang:1.14',
-      pull: 'always',
       commands: [
         'go run golang.org/x/lint/golint -set_exit_status ./...',
       ],
@@ -37,7 +35,6 @@ local PipelineTest = {
     {
       name: 'vet',
       image: 'golang:1.14',
-      pull: 'always',
       commands: [
         'go vet ./...',
       ],
@@ -51,7 +48,6 @@ local PipelineTest = {
     {
       name: 'test',
       image: 'golang:1.14',
-      pull: 'always',
       commands: [
         'go test -cover ./...',
       ],
@@ -86,13 +82,11 @@ local PipelineBuildBinaries = {
     {
       name: 'build',
       image: 'techknowlogick/xgo:go-1.14.x',
-      pull: 'always',
       commands: [
         '[ -z "${DRONE_TAG}" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}',
         'mkdir -p release/',
-        "cd cmd/drone-github-comment && xgo -ldflags \"-s -w -X main.Version=$BUILD_VERSION\" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' .",
-        'ls -la /drone/src',
-        'ls -la /build*',
+        "cd cmd/drone-github-comment && xgo -ldflags \"-s -w -X main.Version=$BUILD_VERSION\" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' -out drone-github-comment .",
+        'ls -la /build/',
         'mv /build/* /drone/src/release/',
       ],
     },
@@ -139,7 +133,6 @@ local PipelineBuildContainer(arch='amd64') = {
     {
       name: 'build',
       image: 'golang:1.14',
-      pull: 'always',
       commands: [
         'go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/' + arch + '/drone-github-comment ./cmd/drone-github-comment',
       ],
@@ -147,7 +140,6 @@ local PipelineBuildContainer(arch='amd64') = {
     {
       name: 'dryrun',
       image: 'plugins/docker:18-linux-' + arch,
-      pull: 'always',
       settings: {
         dry_run: true,
         dockerfile: 'docker/Dockerfile.' + arch,
@@ -163,7 +155,6 @@ local PipelineBuildContainer(arch='amd64') = {
     {
       name: 'publish-dockerhub',
       image: 'plugins/docker:18-linux-' + arch,
-      pull: 'always',
       settings: {
         auto_tag: true,
         auto_tag_suffix: arch,
@@ -180,7 +171,6 @@ local PipelineBuildContainer(arch='amd64') = {
     {
       name: 'publish-quay',
       image: 'plugins/docker:18-linux-' + arch,
-      pull: 'always',
       settings: {
         auto_tag: true,
         auto_tag_suffix: arch,
@@ -242,7 +232,6 @@ local PipelineNotifications = {
     },
     {
       name: 'pushrm-dockerhub',
-      pull: 'always',
       image: 'chko/docker-pushrm:1',
       environment: {
         DOCKER_PASS: {
@@ -261,7 +250,6 @@ local PipelineNotifications = {
     },
     {
       name: 'pushrm-quay',
-      pull: 'always',
       image: 'chko/docker-pushrm:1',
       environment: {
         APIKEY__QUAY_IO: {

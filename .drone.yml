@@ -8,7 +8,6 @@ platform:
 
 steps:
 - name: staticcheck
-  pull: always
   image: golang:1.14
   commands:
   - go run honnef.co/go/tools/cmd/staticcheck ./...
@@ -17,7 +16,6 @@ steps:
     path: /go
 
 - name: lint
-  pull: always
   image: golang:1.14
   commands:
   - go run golang.org/x/lint/golint -set_exit_status ./...
@@ -26,7 +24,6 @@ steps:
     path: /go
 
 - name: vet
-  pull: always
   image: golang:1.14
   commands:
   - go vet ./...
@@ -35,7 +32,6 @@ steps:
     path: /go
 
 - name: test
-  pull: always
   image: golang:1.14
   commands:
   - go test -cover ./...
@@ -63,14 +59,12 @@ platform:
 
 steps:
 - name: build
-  pull: always
   image: techknowlogick/xgo:go-1.14.x
   commands:
   - "[ -z \"${DRONE_TAG}\" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}"
   - mkdir -p release/
-  - cd cmd/drone-github-comment && xgo -ldflags "-s -w -X main.Version=$BUILD_VERSION" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' .
-  - ls -la /drone/src
-  - ls -la /build*
+  - cd cmd/drone-github-comment && xgo -ldflags "-s -w -X main.Version=$BUILD_VERSION" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm64' -out drone-github-comment .
+  - ls -la /build/
   - mv /build/* /drone/src/release/
 
 - name: executable
@@ -109,13 +103,11 @@ platform:
 
 steps:
 - name: build
-  pull: always
   image: golang:1.14
   commands:
   - go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/amd64/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
-  pull: always
   image: plugins/docker:18-linux-amd64
   settings:
     dockerfile: docker/Dockerfile.amd64
@@ -132,7 +124,6 @@ steps:
   - build
 
 - name: publish-dockerhub
-  pull: always
   image: plugins/docker:18-linux-amd64
   settings:
     auto_tag: true
@@ -151,7 +142,6 @@ steps:
   - dryrun
 
 - name: publish-quay
-  pull: always
   image: plugins/docker:18-linux-amd64
   settings:
     auto_tag: true
@@ -189,13 +179,11 @@ platform:
 
 steps:
 - name: build
-  pull: always
   image: golang:1.14
   commands:
   - go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/arm64/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
-  pull: always
   image: plugins/docker:18-linux-arm64
   settings:
     dockerfile: docker/Dockerfile.arm64
@@ -212,7 +200,6 @@ steps:
   - build
 
 - name: publish-dockerhub
-  pull: always
   image: plugins/docker:18-linux-arm64
   settings:
     auto_tag: true
@@ -231,7 +218,6 @@ steps:
   - dryrun
 
 - name: publish-quay
-  pull: always
   image: plugins/docker:18-linux-arm64
   settings:
     auto_tag: true
@@ -269,13 +255,11 @@ platform:
 
 steps:
 - name: build
-  pull: always
   image: golang:1.14
   commands:
   - go build -v -ldflags "-X main.version=${DRONE_TAG:-latest}" -a -tags netgo -o release/arm/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
-  pull: always
   image: plugins/docker:18-linux-arm
   settings:
     dockerfile: docker/Dockerfile.arm
@@ -292,7 +276,6 @@ steps:
   - build
 
 - name: publish-dockerhub
-  pull: always
   image: plugins/docker:18-linux-arm
   settings:
     auto_tag: true
@@ -311,7 +294,6 @@ steps:
   - dryrun
 
 - name: publish-quay
-  pull: always
   image: plugins/docker:18-linux-arm
   settings:
     auto_tag: true
@@ -377,7 +359,6 @@ steps:
     - success
 
 - name: pushrm-dockerhub
-  pull: always
   image: chko/docker-pushrm:1
   environment:
     DOCKER_PASS:
@@ -392,7 +373,6 @@ steps:
     - success
 
 - name: pushrm-quay
-  pull: always
   image: chko/docker-pushrm:1
   environment:
     APIKEY__QUAY_IO:
@@ -436,6 +416,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: eac62dee32972ee5ccf29b0f59700da46bbc1837499f212669a39541527e22a4
+hmac: e39c311c9112476acd3c980340474969a5ea27720867d85bce0dc63f5307569d
 
 ...
