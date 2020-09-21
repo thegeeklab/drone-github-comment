@@ -6,6 +6,7 @@ Drone plugin to add comments to GitHub Issues/PRs
 [![Docker Hub](https://img.shields.io/badge/dockerhub-latest-blue.svg?logo=docker&logoColor=white)](https://hub.docker.com/r/thegeeklab/drone-github-comment)
 [![Quay.io](https://img.shields.io/badge/quay-latest-blue.svg?logo=docker&logoColor=white)](https://quay.io/repository/thegeeklab/drone-github-comment)
 [![Go Report Card](https://goreportcard.com/badge/github.com/thegeeklab/drone-github-comment)](https://goreportcard.com/report/github.com/thegeeklab/drone-github-comment)
+[![GitHub contributors](https://img.shields.io/github/contributors/thegeeklab/drone-github-comment)](https://github.com/thegeeklab/drone-github-comment/graphs/contributors)
 [![Source: GitHub](https://img.shields.io/badge/source-github-blue.svg?logo=github&logoColor=white)](https://github.com/thegeeklab/drone-github-comment)
 [![License: MIT](https://img.shields.io/github/license/thegeeklab/drone-github-comment)](<[LICENSE](https://github.com/thegeeklab/drone-github-comment/blob/master/LICENSE)>)
 
@@ -47,3 +48,11 @@ docker run --rm \
   -w $(pwd) \
   thegeeklab/drone-github-comment
 ```
+
+## Contributors
+
+Special thanks goes to all [contributors](https://github.com/thegeeklab/drone-github-comment/graphs/contributors).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/thegeeklab/drone-github-comment/blob/master/LICENSE) file for details.
