@@ -1,6 +1,6 @@
 repository:
   name: drone-github-comment
-  description: GitHub Comment - Dron plugin to add comments to GitHub Issues/PRs
+  description: Drone plugin to add comments to GitHub Issues/PRs
   topics: drone, drone-plugin
 
   private: false
