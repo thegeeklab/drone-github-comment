@@ -259,7 +259,7 @@ local PipelineNotifications = {
           from_secret: 'docker_username',
         },
         PUSHRM_FILE: 'README.md',
-        PUSHRM_SHORT: 'GitHub Comment - Drone plugin to add comments to GitHub Issues/PRs',
+        PUSHRM_SHORT: 'Drone plugin to add comments to GitHub Issues/PRs',
         PUSHRM_TARGET: 'thegeeklab/${DRONE_REPO_NAME}',
       },
       when: {

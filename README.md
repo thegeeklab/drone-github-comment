@@ -1,6 +1,6 @@
 # drone-github-comment
 
-GitHub Comment - Drone plugin to add comments to GitHub Issues/PRs
+Drone plugin to add comments to GitHub Issues/PRs
 
 [![Build Status](https://img.shields.io/drone/build/thegeeklab/drone-github-comment?logo=drone)](https://cloud.drone.io/thegeeklab/drone-github-comment)
 [![Docker Hub](https://img.shields.io/badge/dockerhub-latest-blue.svg?logo=docker&logoColor=white)](https://hub.docker.com/r/thegeeklab/drone-github-comment)
