@@ -8,7 +8,7 @@ Drone plugin to add comments to GitHub Issues/PRs
 [![Go Report Card](https://goreportcard.com/badge/github.com/thegeeklab/drone-github-comment)](https://goreportcard.com/report/github.com/thegeeklab/drone-github-comment)
 [![GitHub contributors](https://img.shields.io/github/contributors/thegeeklab/drone-github-comment)](https://github.com/thegeeklab/drone-github-comment/graphs/contributors)
 [![Source: GitHub](https://img.shields.io/badge/source-github-blue.svg?logo=github&logoColor=white)](https://github.com/thegeeklab/drone-github-comment)
-[![License: MIT](https://img.shields.io/github/license/thegeeklab/drone-github-comment)](<[LICENSE](https://github.com/thegeeklab/drone-github-comment/blob/master/LICENSE)>)
+[![License: MIT](https://img.shields.io/github/license/thegeeklab/drone-github-comment)](https://github.com/thegeeklab/drone-github-comment/blob/master/LICENSE)
 
 Drone plugin to add comments to GitHub Issues/PR's.
 
