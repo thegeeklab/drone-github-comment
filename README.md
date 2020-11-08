@@ -38,7 +38,7 @@ docker build \
 
 ```Shell
 docker run --rm \
-  -e DRONE_BUILD_EVENT=pull \
+  -e DRONE_BUILD_EVENT=pull_request \
   -e DRONE_REPO_OWNER=octocat \
   -e DRONE_REPO_NAME=foo \
   -e DRONE_PULL_REQUEST=1

@@ -1,1 +1,2 @@
-- initial release
+- BUGFIX
+  - fix drone build event naming
