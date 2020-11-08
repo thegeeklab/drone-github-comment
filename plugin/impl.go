@@ -27,7 +27,7 @@ type Settings struct {
 func (p *Plugin) Validate() error {
 	var err error
 
-	if p.pipeline.Build.Event != "pull" {
+	if p.pipeline.Build.Event != "pull_request" {
 		return fmt.Errorf("github comment plugin is only available for pull requests")
 	}
 
