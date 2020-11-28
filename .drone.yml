@@ -43,6 +43,9 @@ volumes:
 - name: gopath
   temp: {}
 
+image_pull_secrets:
+- docker_config
+
 trigger:
   ref:
   - refs/heads/master
@@ -97,6 +100,9 @@ steps:
     ref:
     - refs/tags/**
 
+image_pull_secrets:
+- docker_config
+
 trigger:
   ref:
   - refs/heads/master
@@ -122,8 +128,10 @@ steps:
   - go build -v -ldflags "-X main.version=$BUILD_VERSION" -a -tags netgo -o release/amd64/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
-  image: plugins/docker:18-linux-amd64
+  image: plugins/docker:19
   settings:
+    config:
+      from_secret: docker_config
     dockerfile: docker/Dockerfile.amd64
     dry_run: true
     password:
@@ -138,10 +146,12 @@ steps:
   - build
 
 - name: publish-dockerhub
-  image: plugins/docker:18-linux-amd64
+  image: plugins/docker:19
   settings:
     auto_tag: true
     auto_tag_suffix: amd64
+    config:
+      from_secret: docker_config
     dockerfile: docker/Dockerfile.amd64
     password:
       from_secret: docker_password
@@ -156,10 +166,12 @@ steps:
   - dryrun
 
 - name: publish-quay
-  image: plugins/docker:18-linux-amd64
+  image: plugins/docker:19
   settings:
     auto_tag: true
     auto_tag_suffix: amd64
+    config:
+      from_secret: docker_config
     dockerfile: docker/Dockerfile.amd64
     password:
       from_secret: quay_password
@@ -173,6 +185,9 @@ steps:
     - refs/tags/**
   depends_on:
   - dryrun
+
+image_pull_secrets:
+- docker_config
 
 trigger:
   ref:
@@ -199,8 +214,10 @@ steps:
   - go build -v -ldflags "-X main.version=$BUILD_VERSION" -a -tags netgo -o release/arm64/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
-  image: plugins/docker:18-linux-arm64
+  image: plugins/docker:19
   settings:
+    config:
+      from_secret: docker_config
     dockerfile: docker/Dockerfile.arm64
     dry_run: true
     password:
@@ -215,10 +232,12 @@ steps:
   - build
 
 - name: publish-dockerhub
-  image: plugins/docker:18-linux-arm64
+  image: plugins/docker:19
   settings:
     auto_tag: true
     auto_tag_suffix: arm64
+    config:
+      from_secret: docker_config
     dockerfile: docker/Dockerfile.arm64
     password:
       from_secret: docker_password
@@ -233,10 +252,12 @@ steps:
   - dryrun
 
 - name: publish-quay
-  image: plugins/docker:18-linux-arm64
+  image: plugins/docker:19
   settings:
     auto_tag: true
     auto_tag_suffix: arm64
+    config:
+      from_secret: docker_config
     dockerfile: docker/Dockerfile.arm64
     password:
       from_secret: quay_password
@@ -250,6 +271,9 @@ steps:
     - refs/tags/**
   depends_on:
   - dryrun
+
+image_pull_secrets:
+- docker_config
 
 trigger:
   ref:
@@ -276,8 +300,10 @@ steps:
   - go build -v -ldflags "-X main.version=$BUILD_VERSION" -a -tags netgo -o release/arm/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
-  image: plugins/docker:18-linux-arm
+  image: plugins/docker:19
   settings:
+    config:
+      from_secret: docker_config
     dockerfile: docker/Dockerfile.arm
     dry_run: true
     password:
@@ -292,10 +318,12 @@ steps:
   - build
 
 - name: publish-dockerhub
-  image: plugins/docker:18-linux-arm
+  image: plugins/docker:19
   settings:
     auto_tag: true
     auto_tag_suffix: arm
+    config:
+      from_secret: docker_config
     dockerfile: docker/Dockerfile.arm
     password:
       from_secret: docker_password
@@ -310,10 +338,12 @@ steps:
   - dryrun
 
 - name: publish-quay
-  image: plugins/docker:18-linux-arm
+  image: plugins/docker:19
   settings:
     auto_tag: true
     auto_tag_suffix: arm
+    config:
+      from_secret: docker_config
     dockerfile: docker/Dockerfile.arm
     password:
       from_secret: quay_password
@@ -327,6 +357,9 @@ steps:
     - refs/tags/**
   depends_on:
   - dryrun
+
+image_pull_secrets:
+- docker_config
 
 trigger:
   ref:
@@ -416,6 +449,9 @@ steps:
     - success
     - failure
 
+image_pull_secrets:
+- docker_config
+
 trigger:
   ref:
   - refs/heads/master
@@ -432,6 +468,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: c475b26373c250eff194cba0fabfddb2047242a3cfb3250ab734a2dd4f92507e
+hmac: 86fcc05f5bcfb7375d23185103d52209232fa92edd680298bd92a313d7eafb8c
 
 ...
