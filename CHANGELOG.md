@@ -1,2 +1,2 @@
-- BUGFIX
-  - fix drone build event naming
+- ENHANCEMENT
+  - Update golang.org/x/oauth2 commit hash to 0b49973
