@@ -1,2 +1,2 @@
 - ENHANCEMENT
-  - Update golang.org/x/oauth2 commit hash to 9317641
+  - Update golang.org/x/oauth2 commit hash to 08078c5
