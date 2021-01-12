@@ -28,10 +28,7 @@ go build -v -a -tags netgo -o release/drone-github-comment
 Build the Docker image with the following command:
 
 ```Shell
-docker build \
-  --label org.label-schema.build-date=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
-  --label org.label-schema.vcs-ref=$(git rev-parse --short HEAD) \
-  --file docker/Dockerfile.amd64 --tag thegeeklab/drone-github-comment .
+docker build --file docker/Dockerfile.amd64 --tag thegeeklab/drone-github-comment .
 ```
 
 ## Usage
