@@ -48,7 +48,8 @@ docker run --rm \
 
 ## Contributors
 
-Special thanks goes to all [contributors](https://github.com/thegeeklab/drone-github-comment/graphs/contributors).
+Special thanks goes to all [contributors](https://github.com/thegeeklab/drone-github-comment/graphs/contributors). If you would like to contribute,
+please see the [instructions](https://github.com/thegeeklab/drone-github-comment/blob/master/CONTRIBUTING.md).
 
 ## License
 
