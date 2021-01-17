@@ -128,7 +128,7 @@ steps:
   - go build -v -ldflags "-X main.version=$BUILD_VERSION" -a -tags netgo -o release/amd64/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
-  image: plugins/docker:19
+  image: thegeeklab/drone-docker:19
   settings:
     config:
       from_secret: docker_config
@@ -146,7 +146,7 @@ steps:
   - build
 
 - name: publish-dockerhub
-  image: plugins/docker:19
+  image: thegeeklab/drone-docker:19
   settings:
     auto_tag: true
     auto_tag_suffix: amd64
@@ -166,7 +166,7 @@ steps:
   - dryrun
 
 - name: publish-quay
-  image: plugins/docker:19
+  image: thegeeklab/drone-docker:19
   settings:
     auto_tag: true
     auto_tag_suffix: amd64
@@ -214,7 +214,7 @@ steps:
   - go build -v -ldflags "-X main.version=$BUILD_VERSION" -a -tags netgo -o release/arm64/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
-  image: plugins/docker:19
+  image: thegeeklab/drone-docker:19
   settings:
     config:
       from_secret: docker_config
@@ -232,7 +232,7 @@ steps:
   - build
 
 - name: publish-dockerhub
-  image: plugins/docker:19
+  image: thegeeklab/drone-docker:19
   settings:
     auto_tag: true
     auto_tag_suffix: arm64
@@ -252,7 +252,7 @@ steps:
   - dryrun
 
 - name: publish-quay
-  image: plugins/docker:19
+  image: thegeeklab/drone-docker:19
   settings:
     auto_tag: true
     auto_tag_suffix: arm64
@@ -300,7 +300,7 @@ steps:
   - go build -v -ldflags "-X main.version=$BUILD_VERSION" -a -tags netgo -o release/arm/drone-github-comment ./cmd/drone-github-comment
 
 - name: dryrun
-  image: plugins/docker:19
+  image: thegeeklab/drone-docker:19
   settings:
     config:
       from_secret: docker_config
@@ -318,7 +318,7 @@ steps:
   - build
 
 - name: publish-dockerhub
-  image: plugins/docker:19
+  image: thegeeklab/drone-docker:19
   settings:
     auto_tag: true
     auto_tag_suffix: arm
@@ -338,7 +338,7 @@ steps:
   - dryrun
 
 - name: publish-quay
-  image: plugins/docker:19
+  image: thegeeklab/drone-docker:19
   settings:
     auto_tag: true
     auto_tag_suffix: arm
@@ -468,6 +468,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 86fcc05f5bcfb7375d23185103d52209232fa92edd680298bd92a313d7eafb8c
+hmac: 35066688a49368c27562e5ed2fab53936806fb923de6920b1195e4bd3d6d8e99
 
 ...
