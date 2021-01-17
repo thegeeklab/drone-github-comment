@@ -8,7 +8,7 @@ Drone plugin to add comments to GitHub Issues/PRs
 [![Go Report Card](https://goreportcard.com/badge/github.com/thegeeklab/drone-github-comment)](https://goreportcard.com/report/github.com/thegeeklab/drone-github-comment)
 [![GitHub contributors](https://img.shields.io/github/contributors/thegeeklab/drone-github-comment)](https://github.com/thegeeklab/drone-github-comment/graphs/contributors)
 [![Source: GitHub](https://img.shields.io/badge/source-github-blue.svg?logo=github&logoColor=white)](https://github.com/thegeeklab/drone-github-comment)
-[![License: MIT](https://img.shields.io/github/license/thegeeklab/drone-github-comment)](https://github.com/thegeeklab/drone-github-comment/blob/master/LICENSE)
+[![License: MIT](https://img.shields.io/github/license/thegeeklab/drone-github-comment)](https://github.com/thegeeklab/drone-github-comment/blob/main/LICENSE)
 
 Drone plugin to add comments to GitHub Issues/PR's.
 
@@ -49,8 +49,8 @@ docker run --rm \
 ## Contributors
 
 Special thanks goes to all [contributors](https://github.com/thegeeklab/drone-github-comment/graphs/contributors). If you would like to contribute,
-please see the [instructions](https://github.com/thegeeklab/drone-github-comment/blob/master/CONTRIBUTING.md).
+please see the [instructions](https://github.com/thegeeklab/drone-github-comment/blob/main/CONTRIBUTING.md).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/thegeeklab/drone-github-comment/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/thegeeklab/drone-github-comment/blob/main/LICENSE) file for details.
