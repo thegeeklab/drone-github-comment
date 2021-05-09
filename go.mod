@@ -13,6 +13,7 @@ require (
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/urfave/cli/v2 v2.3.0
 	golang.org/x/crypto v0.0.0-20210506145944-38f3c27a63bf // indirect
+	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616
 	golang.org/x/mod v0.4.2 // indirect
 	golang.org/x/net v0.0.0-20210508051633-16afe75a6701 // indirect
 	golang.org/x/oauth2 v0.0.0-20210427180440-81ed05c6b58c
