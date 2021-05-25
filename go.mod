@@ -19,5 +19,5 @@ require (
 	golang.org/x/oauth2 v0.0.0-20210514164344-f6687ab2804c
 	golang.org/x/sys v0.0.0-20210507161434-a76c4d0a0096 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	honnef.co/go/tools v0.1.4
+	honnef.co/go/tools v0.2.0
 )
