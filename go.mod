@@ -6,7 +6,7 @@ require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/drone-plugins/drone-plugin-lib v0.4.0
 	github.com/golang/protobuf v1.5.2 // indirect
-	github.com/google/go-github/v35 v35.2.0
+	github.com/google/go-github/v35 v35.3.0
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/joho/godotenv v1.3.0
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
