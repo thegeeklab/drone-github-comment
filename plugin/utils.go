@@ -5,20 +5,20 @@ import (
 	"os"
 )
 
-func readStringOrFile(input string) (string, error) {
+func readStringOrFile(input string) (string, bool, error) {
 	if len(input) > 255 {
-		return input, nil
+		return input, false, nil
 	}
 	// Check if input is a file path
 	if _, err := os.Stat(input); err != nil && os.IsNotExist(err) {
 		// No file found => use input as result
-		return input, nil
+		return input, false, nil
 	} else if err != nil {
-		return "", err
+		return "", false, err
 	}
 	result, err := ioutil.ReadFile(input)
 	if err != nil {
-		return "", err
+		return "", true, err
 	}
-	return string(result), nil
+	return string(result), true, nil
 }
