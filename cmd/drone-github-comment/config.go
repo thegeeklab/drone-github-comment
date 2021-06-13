@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/urfave/cli/v2"
 	"github.com/thegeeklab/drone-github-comment/plugin"
+	"github.com/urfave/cli/v2"
 )
 
 // settingsFlags has the cli.Flags for the plugin.Settings.
@@ -38,6 +38,13 @@ func settingsFlags(settings *plugin.Settings) []cli.Flag {
 			Usage:       "update an existing comment that matches the key",
 			EnvVars:     []string{"PLUGIN_UPDATE", "GITHUB_COMMENT_UPDATE"},
 			Destination: &settings.Update,
+		},
+		&cli.BoolFlag{
+			Name:        "skip-missing",
+			Value:       false,
+			Usage:       "message need to be an existing file",
+			EnvVars:     []string{"PLUGIN_SKIP_MISSING", "GITHUB_COMMENT_SKIP_MISSING"},
+			Destination: &settings.SkipMissing,
 		},
 	}
 }

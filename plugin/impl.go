@@ -8,17 +8,20 @@ import (
 	"strings"
 
 	"github.com/google/go-github/v35/github"
+	"github.com/sirupsen/logrus"
 	"golang.org/x/oauth2"
 )
 
 // Settings for the Plugin.
 type Settings struct {
-	BaseURL  string
-	IssueNum int
-	Key      string
-	Message  string
-	Update   bool
-	APIKey   string
+	BaseURL     string
+	IssueNum    int
+	Key         string
+	Message     string
+	Update      bool
+	APIKey      string
+	SkipMissing bool
+	IsFile      bool
 
 	baseURL *url.URL
 }
@@ -39,7 +42,7 @@ func (p *Plugin) Validate() error {
 		return fmt.Errorf("no message provides")
 	}
 	if p.settings.Message != "" {
-		if p.settings.Message, err = readStringOrFile(p.settings.Message); err != nil {
+		if p.settings.Message, p.settings.IsFile, err = readStringOrFile(p.settings.Message); err != nil {
 			return fmt.Errorf("error while reading %s: %w", p.settings.Message, err)
 		}
 	}
@@ -57,7 +60,7 @@ func (p *Plugin) Validate() error {
 		hash := sha256.Sum256([]byte(key))
 		p.settings.Key = fmt.Sprintf("%x", hash)
 	}
-	if p.settings.Key, err = readStringOrFile(p.settings.Key); err != nil {
+	if p.settings.Key, _, err = readStringOrFile(p.settings.Key); err != nil {
 		return fmt.Errorf("error while reading %s: %w", p.settings.Key, err)
 	}
 
@@ -84,6 +87,11 @@ func (p *Plugin) Execute() error {
 		Update:   p.settings.Update,
 		Key:      p.settings.Key,
 		IssueNum: p.pipeline.Build.PullRequest,
+	}
+
+	if p.settings.SkipMissing && !p.settings.IsFile {
+		logrus.Printf("comment skipped: 'message' is not a valid path or file does not exist wile 'skip-missing' is enabled")
+		return nil
 	}
 
 	err := cc.issueComment()
