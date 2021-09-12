@@ -10,40 +10,40 @@ func settingsFlags(settings *plugin.Settings) []cli.Flag {
 	return []cli.Flag{
 		&cli.StringFlag{
 			Name:        "api-key",
-			Usage:       "api key to access github api",
 			EnvVars:     []string{"PLUGIN_API_KEY", "GITHUB_COMMENT_API_KEY"},
+			Usage:       "sets api key to access github api",
 			Destination: &settings.APIKey,
 		},
 		&cli.StringFlag{
 			Name:        "base-url",
-			Value:       "https://api.github.com/",
-			Usage:       "api url, needs to be changed for ghe",
 			EnvVars:     []string{"PLUGIN_BASE_URL", "GITHUB_COMMENT_BASE_URL"},
+			Usage:       "sets api url; need to be changed for gh enterprise",
+			Value:       "https://api.github.com/",
 			Destination: &settings.BaseURL,
 		},
 		&cli.StringFlag{
 			Name:        "key",
-			Usage:       "key to assign comment",
 			EnvVars:     []string{"PLUGIN_KEY", "GITHUB_COMMENT_KEY"},
+			Usage:       "sets unique key to assign to comment",
 			Destination: &settings.Key,
 		},
 		&cli.StringFlag{
 			Name:        "message",
-			Usage:       "file or string with comment message",
 			EnvVars:     []string{"PLUGIN_MESSAGE", "GITHUB_COMMENT_MESSAGE"},
+			Usage:       "sets file or string with comment message",
 			Destination: &settings.Message,
 		},
 		&cli.BoolFlag{
 			Name:        "update",
-			Usage:       "update an existing comment that matches the key",
 			EnvVars:     []string{"PLUGIN_UPDATE", "GITHUB_COMMENT_UPDATE"},
+			Usage:       "enables update of an existing comment that matches the key",
 			Destination: &settings.Update,
 		},
 		&cli.BoolFlag{
 			Name:        "skip-missing",
-			Value:       false,
-			Usage:       "message need to be an existing file",
 			EnvVars:     []string{"PLUGIN_SKIP_MISSING", "GITHUB_COMMENT_SKIP_MISSING"},
+			Usage:       "skips comment creation if the given message file does not exist",
+			Value:       false,
 			Destination: &settings.SkipMissing,
 		},
 	}

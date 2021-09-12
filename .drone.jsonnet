@@ -235,6 +235,61 @@ local PipelineBuildContainer(arch='amd64') = {
   },
 };
 
+local PipelineDocs = {
+  kind: 'pipeline',
+  name: 'docs',
+  platform: {
+    os: 'linux',
+    arch: 'amd64',
+  },
+  concurrency: {
+    limit: 1,
+  },
+  steps: [
+    {
+      name: 'markdownlint',
+      image: 'thegeeklab/markdownlint-cli',
+      commands: [
+        "markdownlint 'docs/content/**/*.md' 'README.md' 'CONTRIBUTING.md'",
+      ],
+    },
+    {
+      name: 'spellcheck',
+      image: 'node:lts-alpine',
+      commands: [
+        'npm install -g spellchecker-cli',
+        "spellchecker --files '_docs/**/*.md' 'README.md' 'CONTRIBUTING.md' -d .dictionary -p spell indefinite-article syntax-urls --no-suggestions",
+      ],
+      environment: {
+        FORCE_COLOR: true,
+        NPM_CONFIG_LOGLEVEL: 'error',
+      },
+    },
+    {
+      name: 'publish',
+      image: 'plugins/gh-pages',
+      settings: {
+        username: { from_secret: 'github_username' },
+        password: { from_secret: 'github_token' },
+        pages_directory: '_docs/',
+        target_branch: 'docs',
+      },
+      when: {
+        ref: ['refs/heads/main'],
+      },
+    },
+  ],
+  depends_on: [
+    'build-binaries',
+    'build-container-amd64',
+    'build-container-arm64',
+    'build-container-arm',
+  ],
+  trigger: {
+    ref: ['refs/heads/main', 'refs/tags/**', 'refs/pull/**'],
+  },
+};
+
 local PipelineNotifications = {
   kind: 'pipeline',
   image_pull_secrets: ['docker_config'],
@@ -283,7 +338,7 @@ local PipelineNotifications = {
           from_secret: 'docker_username',
         },
         PUSHRM_FILE: 'README.md',
-        PUSHRM_SHORT: 'Drone plugin to add comments to GitHub Issues/PRs',
+        PUSHRM_SHORT: 'Drone plugin to add comments to GitHub Issues and Pull Requests',
         PUSHRM_TARGET: 'thegeeklab/${DRONE_REPO_NAME}',
       },
       when: {
@@ -320,10 +375,7 @@ local PipelineNotifications = {
     },
   ],
   depends_on: [
-    'build-binaries',
-    'build-container-amd64',
-    'build-container-arm',
-    'build-container-arm64',
+    'docs',
   ],
   trigger: {
     ref: ['refs/heads/main', 'refs/tags/**'],
@@ -337,5 +389,6 @@ local PipelineNotifications = {
   PipelineBuildContainer(arch='amd64'),
   PipelineBuildContainer(arch='arm64'),
   PipelineBuildContainer(arch='arm'),
+  PipelineDocs,
   PipelineNotifications,
 ]

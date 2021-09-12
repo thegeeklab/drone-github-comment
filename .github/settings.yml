@@ -1,6 +1,7 @@
 repository:
   name: drone-github-comment
-  description: Drone plugin to add comments to GitHub Issues/PRs
+  description: Drone plugin to add comments to GitHub Issues and Pull Requests
+  homepage: https://drone-plugin-index.geekdocs.de/plugins/drone-github-comment
   topics: drone, drone-plugin
 
   private: false
@@ -53,3 +54,12 @@ branches:
           - continuous-integration/drone/pr
       enforce_admins: null
       restrictions: null
+  - name: docs
+    protection:
+      required_pull_request_reviews: null
+      required_status_checks: null
+      enforce_admins: true
+      restrictions:
+        users: []
+        teams:
+          - bot
