@@ -428,7 +428,7 @@ steps:
     DOCKER_USER:
       from_secret: docker_username
     PUSHRM_FILE: README.md
-    PUSHRM_SHORT: Drone plugin to add comments to GitHub Issues/PRs
+    PUSHRM_SHORT: Drone plugin to add comments to GitHub Issues and Pull Requests
     PUSHRM_TARGET: thegeeklab/${DRONE_REPO_NAME}
   image: chko/docker-pushrm:1
   name: pushrm-dockerhub
@@ -472,6 +472,6 @@ trigger:
   - failure
 ---
 kind: signature
-hmac: c1107cd57c9386f653d0c00eb55ffc303ae691c9e99df370a71d4f8597f60235
+hmac: 9b5bf470bd6b3d271934539b2e5be059c602cc7b5900d4e02e23bf22d0175ade
 
 ...
