@@ -1,5 +1,5 @@
 ---
-title: drone-docker
+title: drone-github-comment
 ---
 
 [![Build Status](https://img.shields.io/drone/build/thegeeklab/drone-github-comment?logo=drone&server=https%3A%2F%2Fdrone.thegeeklab.de)](https://drone.thegeeklab.de/thegeeklab/drone-github-comment)
