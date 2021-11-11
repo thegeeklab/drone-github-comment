@@ -15,5 +15,5 @@ require (
 	golang.org/x/mod v0.4.2 // indirect
 	golang.org/x/net v0.0.0-20210508051633-16afe75a6701 // indirect
 	golang.org/x/oauth2 v0.0.0-20211005180243-6b3c2da341f1
-	honnef.co/go/tools v0.2.1
+	honnef.co/go/tools v0.2.2
 )
