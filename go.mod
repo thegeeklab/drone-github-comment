@@ -13,6 +13,6 @@ require (
 	github.com/urfave/cli/v2 v2.3.0
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616
 	golang.org/x/mod v0.4.2 // indirect
-	golang.org/x/oauth2 v0.0.0-20220223155221-ee480838109b
+	golang.org/x/oauth2 v0.0.0-20220309155454-6242fa91716a
 	honnef.co/go/tools v0.2.2
 )
