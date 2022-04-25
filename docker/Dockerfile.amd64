@@ -8,4 +8,5 @@ LABEL org.opencontainers.image.source="https://github.com/thegeeklab/drone-githu
 LABEL org.opencontainers.image.documentation="https://github.com/thegeeklab/drone-github-comment"
 
 ADD dist/drone-github-comment /bin/
-ENTRYPOINT [ "/bin/drone-github-comment" ]
+
+ENTRYPOINT ["/bin/drone-github-comment"]

@@ -136,6 +136,7 @@ local PipelineBuildContainer(arch='amd64') = {
       image: 'golang:1.18',
       commands: [
         'make build',
+        'ls -l dist/drone-github-comment',
       ],
     },
     {

@@ -108,6 +108,7 @@ steps:
     image: golang:1.18
     commands:
       - make build
+      - ls -l dist/drone-github-comment
 
   - name: dryrun
     image: thegeeklab/drone-docker:19
@@ -180,6 +181,7 @@ steps:
     image: golang:1.18
     commands:
       - make build
+      - ls -l dist/drone-github-comment
 
   - name: dryrun
     image: thegeeklab/drone-docker:19
@@ -252,6 +254,7 @@ steps:
     image: golang:1.18
     commands:
       - make build
+      - ls -l dist/drone-github-comment
 
   - name: dryrun
     image: thegeeklab/drone-docker:19
@@ -454,6 +457,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 62584eb04cd4935f8bf4ca84d3b137f51d022ffc0b7c96494bbc15545cb991bb
+hmac: 437f7ee83558c821e40d26af06e99e1e1a7d805cbf8c7b409747711dd696f193
 
 ...
