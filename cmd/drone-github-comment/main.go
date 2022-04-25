@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/drone-plugins/drone-plugin-lib/errors"
@@ -10,7 +11,10 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var version = "unknown"
+var (
+	BuildVersion = "devel"
+	BuildDate    = "00000000"
+)
 
 func main() {
 	settings := &plugin.Settings{}
@@ -19,10 +23,14 @@ func main() {
 		_ = godotenv.Overload("/run/drone/env")
 	}
 
+	cli.VersionPrinter = func(c *cli.Context) {
+		fmt.Printf("%s version=%s date=%s\n", c.App.Name, c.App.Version, BuildDate)
+	}
+
 	app := &cli.App{
 		Name:    "drone-github-comment",
 		Usage:   "handle comments to github issues or pull requests",
-		Version: version,
+		Version: BuildVersion,
 		Flags:   append(settingsFlags(settings), urfave.Flags()...),
 		Action:  run(settings),
 	}
