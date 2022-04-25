@@ -48,7 +48,7 @@ func (p *Plugin) Validate() error {
 	}
 
 	if !strings.HasSuffix(p.settings.BaseURL, "/") {
-		p.settings.BaseURL = p.settings.BaseURL + "/"
+		p.settings.BaseURL += "/"
 	}
 	p.settings.baseURL, err = url.Parse(p.settings.BaseURL)
 	if err != nil {
@@ -95,7 +95,6 @@ func (p *Plugin) Execute() error {
 	}
 
 	err := cc.issueComment()
-
 	if err != nil {
 		return fmt.Errorf("failed to create or update comment: %w", err)
 	}

@@ -64,7 +64,7 @@ func (cc *commentClient) comment() (*github.IssueComment, error) {
 			return nil, err
 		}
 
-		allComments = append(comments, comments...)
+		allComments = append(allComments, comments...)
 		if resp.NextPage == 0 {
 			break
 		}
