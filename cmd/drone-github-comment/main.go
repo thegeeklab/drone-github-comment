@@ -6,8 +6,8 @@ import (
 	"github.com/drone-plugins/drone-plugin-lib/errors"
 	"github.com/drone-plugins/drone-plugin-lib/urfave"
 	"github.com/joho/godotenv"
-	"github.com/urfave/cli/v2"
 	"github.com/thegeeklab/drone-github-comment/plugin"
+	"github.com/urfave/cli/v2"
 )
 
 var version = "unknown"
@@ -16,7 +16,7 @@ func main() {
 	settings := &plugin.Settings{}
 
 	if _, err := os.Stat("/run/drone/env"); err == nil {
-		godotenv.Overload("/run/drone/env")
+		_ = godotenv.Overload("/run/drone/env")
 	}
 
 	app := &cli.App{

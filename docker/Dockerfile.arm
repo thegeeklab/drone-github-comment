@@ -7,5 +7,5 @@ LABEL org.opencontainers.image.url="https://github.com/thegeeklab/drone-github-c
 LABEL org.opencontainers.image.source="https://github.com/thegeeklab/drone-github-comment"
 LABEL org.opencontainers.image.documentation="https://github.com/thegeeklab/drone-github-comment"
 
-ADD release/arm/drone-github-comment /bin/
+ADD dist/drone-github-comment /bin/
 ENTRYPOINT [ "/bin/drone-github-comment" ]

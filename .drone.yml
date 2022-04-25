@@ -7,44 +7,33 @@ platform:
   arch: amd64
 
 steps:
-  - name: staticcheck
+  - name: deps
     image: golang:1.18
     commands:
-      - go run honnef.co/go/tools/cmd/staticcheck ./...
+      - make deps
     volumes:
-      - name: gopath
+      - name: godeps
         path: /go
 
   - name: lint
     image: golang:1.18
     commands:
-      - go run golang.org/x/lint/golint -set_exit_status ./...
+      - make lint
     volumes:
-      - name: gopath
-        path: /go
-
-  - name: vet
-    image: golang:1.18
-    commands:
-      - go vet ./...
-    volumes:
-      - name: gopath
+      - name: godeps
         path: /go
 
   - name: test
     image: golang:1.18
     commands:
-      - go test -cover ./...
+      - make test
     volumes:
-      - name: gopath
+      - name: godeps
         path: /go
 
 volumes:
-  - name: gopath
+  - name: godeps
     temp: {}
-
-image_pull_secrets:
-  - docker_config
 
 trigger:
   ref:
@@ -64,28 +53,12 @@ steps:
   - name: build
     image: techknowlogick/xgo:go-1.18.x
     commands:
-      - "[ -z \"${DRONE_TAG}\" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}"
-      - mkdir -p release/
-      - cd cmd/drone-github-comment && xgo -ldflags "-s -w -X main.version=$BUILD_VERSION" -tags netgo -targets 'linux/amd64,linux/arm-6,linux/arm-7,linux/arm64' -out drone-github-comment .
-      - mv /build/* /drone/src/release/
-      - ls -l /drone/src/release/
+      - make release
 
   - name: executable
     image: alpine
     commands:
-      - $(find release/ -executable -type f | grep drone-github-comment-linux-amd64) --help
-
-  - name: compress
-    image: alpine
-    commands:
-      - apk add upx
-      - find release/ -maxdepth 1 -executable -type f -exec upx {} \;
-      - ls -lh release/
-
-  - name: checksum
-    image: alpine
-    commands:
-      - cd release/ && sha256sum * > sha256sum.txt
+      - $(find dist/ -executable -type f -iname ${DRONE_REPO_NAME}-linux-amd64) --help
 
   - name: changelog-generate
     image: thegeeklab/git-chglog
@@ -105,16 +78,13 @@ steps:
       api_key:
         from_secret: github_token
       files:
-        - release/*
+        - dist/*
       note: CHANGELOG.md
       overwrite: true
       title: ${DRONE_TAG}
     when:
       ref:
         - refs/tags/**
-
-image_pull_secrets:
-  - docker_config
 
 trigger:
   ref:
@@ -137,21 +107,14 @@ steps:
   - name: build
     image: golang:1.18
     commands:
-      - "[ -z \"${DRONE_TAG}\" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}"
-      - go build -v -ldflags "-X main.version=$BUILD_VERSION" -a -tags netgo -o release/amd64/drone-github-comment ./cmd/drone-github-comment
+      - make build
 
   - name: dryrun
     image: thegeeklab/drone-docker:19
     settings:
-      config:
-        from_secret: docker_config
       dockerfile: docker/Dockerfile.amd64
       dry_run: true
-      password:
-        from_secret: docker_password
       repo: thegeeklab/${DRONE_REPO_NAME}
-      username:
-        from_secret: docker_username
     when:
       ref:
         - refs/pull/**
@@ -163,8 +126,6 @@ steps:
     settings:
       auto_tag: true
       auto_tag_suffix: amd64
-      config:
-        from_secret: docker_config
       dockerfile: docker/Dockerfile.amd64
       password:
         from_secret: docker_password
@@ -183,8 +144,6 @@ steps:
     settings:
       auto_tag: true
       auto_tag_suffix: amd64
-      config:
-        from_secret: docker_config
       dockerfile: docker/Dockerfile.amd64
       password:
         from_secret: quay_password
@@ -198,9 +157,6 @@ steps:
         - refs/tags/**
     depends_on:
       - dryrun
-
-image_pull_secrets:
-  - docker_config
 
 trigger:
   ref:
@@ -223,21 +179,14 @@ steps:
   - name: build
     image: golang:1.18
     commands:
-      - "[ -z \"${DRONE_TAG}\" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}"
-      - go build -v -ldflags "-X main.version=$BUILD_VERSION" -a -tags netgo -o release/arm64/drone-github-comment ./cmd/drone-github-comment
+      - make build
 
   - name: dryrun
     image: thegeeklab/drone-docker:19
     settings:
-      config:
-        from_secret: docker_config
       dockerfile: docker/Dockerfile.arm64
       dry_run: true
-      password:
-        from_secret: docker_password
       repo: thegeeklab/${DRONE_REPO_NAME}
-      username:
-        from_secret: docker_username
     when:
       ref:
         - refs/pull/**
@@ -249,8 +198,6 @@ steps:
     settings:
       auto_tag: true
       auto_tag_suffix: arm64
-      config:
-        from_secret: docker_config
       dockerfile: docker/Dockerfile.arm64
       password:
         from_secret: docker_password
@@ -269,8 +216,6 @@ steps:
     settings:
       auto_tag: true
       auto_tag_suffix: arm64
-      config:
-        from_secret: docker_config
       dockerfile: docker/Dockerfile.arm64
       password:
         from_secret: quay_password
@@ -284,9 +229,6 @@ steps:
         - refs/tags/**
     depends_on:
       - dryrun
-
-image_pull_secrets:
-  - docker_config
 
 trigger:
   ref:
@@ -309,21 +251,14 @@ steps:
   - name: build
     image: golang:1.18
     commands:
-      - "[ -z \"${DRONE_TAG}\" ] && BUILD_VERSION=${DRONE_COMMIT_SHA:0:8} || BUILD_VERSION=${DRONE_TAG##v}"
-      - go build -v -ldflags "-X main.version=$BUILD_VERSION" -a -tags netgo -o release/arm/drone-github-comment ./cmd/drone-github-comment
+      - make build
 
   - name: dryrun
     image: thegeeklab/drone-docker:19
     settings:
-      config:
-        from_secret: docker_config
       dockerfile: docker/Dockerfile.arm
       dry_run: true
-      password:
-        from_secret: docker_password
       repo: thegeeklab/${DRONE_REPO_NAME}
-      username:
-        from_secret: docker_username
     when:
       ref:
         - refs/pull/**
@@ -335,8 +270,6 @@ steps:
     settings:
       auto_tag: true
       auto_tag_suffix: arm
-      config:
-        from_secret: docker_config
       dockerfile: docker/Dockerfile.arm
       password:
         from_secret: docker_password
@@ -355,8 +288,6 @@ steps:
     settings:
       auto_tag: true
       auto_tag_suffix: arm
-      config:
-        from_secret: docker_config
       dockerfile: docker/Dockerfile.arm
       password:
         from_secret: quay_password
@@ -370,9 +301,6 @@ steps:
         - refs/tags/**
     depends_on:
       - dryrun
-
-image_pull_secrets:
-  - docker_config
 
 trigger:
   ref:
@@ -513,9 +441,6 @@ steps:
         - success
         - failure
 
-image_pull_secrets:
-  - docker_config
-
 trigger:
   ref:
     - refs/heads/main
@@ -529,6 +454,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 5cd21b17a502582e619fecbb7a09fcd895279018dca98c7a25f7ae7b5ac76358
+hmac: 62584eb04cd4935f8bf4ca84d3b137f51d022ffc0b7c96494bbc15545cb991bb
 
 ...
