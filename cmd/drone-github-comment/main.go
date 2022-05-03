@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/drone-plugins/drone-plugin-lib/errors"
-	"github.com/drone-plugins/drone-plugin-lib/urfave"
 	"github.com/joho/godotenv"
 	"github.com/thegeeklab/drone-github-comment/plugin"
+	"github.com/thegeeklab/drone-plugin-lib/errors"
+	"github.com/thegeeklab/drone-plugin-lib/urfave"
 	"github.com/urfave/cli/v2"
 )
 

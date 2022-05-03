@@ -14,8 +14,7 @@ Drone plugin to add comments to GitHub Issues and Pull Requests. You can find th
 
 ## Contributors
 
-Special thanks goes to all [contributors](https://github.com/thegeeklab/drone-github-comment/graphs/contributors). If you would like to contribute,
-please see the [instructions](https://github.com/thegeeklab/drone-github-comment/blob/main/CONTRIBUTING.md).
+Special thanks goes to all [contributors](https://github.com/thegeeklab/drone-github-comment/graphs/contributors). If you would like to contribute, please see the [instructions](https://github.com/thegeeklab/drone-github-comment/blob/main/CONTRIBUTING.md).
 
 ## License
 
