@@ -7,11 +7,12 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/thegeeklab/drone-plugin-lib v1.0.0
-	github.com/urfave/cli/v2 v2.5.1
+	github.com/urfave/cli/v2 v2.7.1
 	golang.org/x/oauth2 v0.0.0-20220411215720-9780585627b5
 )
 
 require (
+	github.com/antzucaro/matchr v0.0.0-20210222213004-b04723ef80f0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
