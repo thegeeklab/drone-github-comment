@@ -134,8 +134,8 @@ github.com/stretchr/testify v1.4.0 h1:2E4SXV/wtOkTonXsotYi4li6zVWxYlZuYNCXe9XRJy
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
 github.com/thegeeklab/drone-plugin-lib v1.0.0 h1:PQeLnJa0q988rODYod/XtDy/f0cHHUhOA2Y8m5XRW4g=
 github.com/thegeeklab/drone-plugin-lib v1.0.0/go.mod h1:XAlZDTSNNJogOH1+nS5u0notdj5dO/gtKnU7guzE95g=
-github.com/urfave/cli/v2 v2.7.1 h1:DsAOFeI9T0vmUW4LiGR5mhuCIn5kqGIE4WMU2ytmH00=
-github.com/urfave/cli/v2 v2.7.1/go.mod h1:TYFbtzt/azQoJOrGH5mDfZtS0jIkl/OeFwlRWPR9KRM=
+github.com/urfave/cli/v2 v2.8.0 h1:EZsAB20oRW4nHcB99TTL6PrXpBGIEujMEKdjwruY9KQ=
+github.com/urfave/cli/v2 v2.8.0/go.mod h1:TYFbtzt/azQoJOrGH5mDfZtS0jIkl/OeFwlRWPR9KRM=
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
