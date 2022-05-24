@@ -7,7 +7,7 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/thegeeklab/drone-plugin-lib v1.0.0
-	github.com/urfave/cli/v2 v2.7.1
+	github.com/urfave/cli/v2 v2.8.0
 	golang.org/x/oauth2 v0.0.0-20220411215720-9780585627b5
 )
 
