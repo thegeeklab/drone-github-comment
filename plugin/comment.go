@@ -47,7 +47,7 @@ func (cc *commentClient) issueComment() error {
 	}
 
 	if err != nil {
-		return fmt.Errorf("failed to add or update comment: %w", err)
+		return err
 	}
 
 	return nil
