@@ -34,13 +34,6 @@ func (p *Plugin) Validate() error {
 		return fmt.Errorf("github comment plugin is only available for pull requests")
 	}
 
-	if p.settings.APIKey == "" {
-		return fmt.Errorf("no api key provided")
-	}
-
-	if p.settings.Message == "" {
-		return fmt.Errorf("no message provides")
-	}
 	if p.settings.Message != "" {
 		if p.settings.Message, p.settings.IsFile, err = readStringOrFile(p.settings.Message); err != nil {
 			return fmt.Errorf("error while reading %s: %w", p.settings.Message, err)

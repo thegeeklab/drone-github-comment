@@ -3,7 +3,7 @@ properties:
   api_key:
     description: Personal Access token to access the GitHub API.
     type: string
-    required: false
+    required: true
 
   base_url:
     description: API URL. Only need to be changed for GitHub enterprise in most cases
@@ -17,9 +17,9 @@ properties:
     required: false
 
   message:
-    description: File or string that contains the comment text.
+    description: Path to file or string that contains the comment text.
     type: string
-    required: false
+    required: true
 
   update:
     description: Enables update of an existing comment that matches the key.

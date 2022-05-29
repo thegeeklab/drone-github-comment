@@ -14,6 +14,7 @@ func settingsFlags(settings *plugin.Settings, category string) []cli.Flag {
 			Usage:       "personal access token access github api",
 			Destination: &settings.APIKey,
 			Category:    category,
+			Required:    true,
 		},
 		&cli.StringFlag{
 			Name:        "base-url",
@@ -36,6 +37,7 @@ func settingsFlags(settings *plugin.Settings, category string) []cli.Flag {
 			Usage:       "file or string that holds the comment text",
 			Destination: &settings.Message,
 			Category:    category,
+			Required:    true,
 		},
 		&cli.BoolFlag{
 			Name:        "update",
