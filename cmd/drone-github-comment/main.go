@@ -5,9 +5,9 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/sirupsen/logrus"
 	"github.com/thegeeklab/drone-github-comment/plugin"
-	"github.com/thegeeklab/drone-plugin-lib/errors"
-	"github.com/thegeeklab/drone-plugin-lib/urfave"
+	"github.com/thegeeklab/drone-plugin-lib/v2/urfave"
 	"github.com/urfave/cli/v2"
 )
 
@@ -36,7 +36,7 @@ func main() {
 	}
 
 	if err := app.Run(os.Args); err != nil {
-		errors.HandleExit(err)
+		logrus.Fatal(err)
 	}
 }
 
@@ -51,19 +51,11 @@ func run(settings *plugin.Settings) cli.ActionFunc {
 		)
 
 		if err := plugin.Validate(); err != nil {
-			if e, ok := err.(errors.ExitCoder); ok {
-				return e
-			}
-
-			return errors.ExitMessagef("validation failed: %w", err)
+			return fmt.Errorf("validation failed: %w", err)
 		}
 
 		if err := plugin.Execute(); err != nil {
-			if e, ok := err.(errors.ExitCoder); ok {
-				return e
-			}
-
-			return errors.ExitMessagef("execution failed: %w", err)
+			return fmt.Errorf("execution failed: %w", err)
 		}
 
 		return nil
