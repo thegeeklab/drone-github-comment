@@ -17,6 +17,29 @@ Drone plugin to add comments to GitHub Issues and Pull Requests.
 <!-- spellchecker-enable -->
 <!-- prettier-ignore-end -->
 
+## Usage
+
+```YAML
+kind: pipeline
+name: default
+
+steps:
+  - name: pr-comment
+    image: thegeeklab/drone-github-comment
+    settings:
+      api_key: ghp_3LbMg9Kncpdkhjp3bh3dMnKNXLjVMTsXk4sM
+      message: "CI run completed successfully"
+      update: true
+```
+
+### Parameters
+
+<!-- prettier-ignore-start -->
+<!-- spellchecker-disable -->
+{{< propertylist name=drone-s3-sync.data >}}
+<!-- spellchecker-enable -->
+<!-- prettier-ignore-end -->
+
 ## Build
 
 Build the binary with the following command:
@@ -36,7 +59,7 @@ Build the Docker image with the following command:
 docker build --file docker/Dockerfile.amd64 --tag thegeeklab/drone-github-comment .
 ```
 
-## Usage
+## Test
 
 ```Shell
 docker run --rm \
@@ -50,23 +73,3 @@ docker run --rm \
   -w $(pwd) \
   thegeeklab/drone-github-comment
 ```
-
-### Parameters
-
-api_key
-: sets api key to access github api
-
-base_url
-: sets api url; need to be changed for gh enterprise (default `https://api.github.com`)
-
-key
-: sets unique key to assign to comment
-
-message
-: sets file or string with comment message
-
-update
-: enables update of an existing comment that matches the key
-
-skip_missing
-: skips comment creation if the given message file does not exist (default `false`)
