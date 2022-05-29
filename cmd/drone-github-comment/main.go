@@ -31,7 +31,7 @@ func main() {
 		Name:    "drone-github-comment",
 		Usage:   "handle comments to github issues or pull requests",
 		Version: BuildVersion,
-		Flags:   append(settingsFlags(settings), urfave.Flags()...),
+		Flags:   append(settingsFlags(settings, urfave.FlagsPluginCategory), urfave.Flags()...),
 		Action:  run(settings),
 	}
 
