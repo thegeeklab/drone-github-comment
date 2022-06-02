@@ -83,7 +83,7 @@ func (p *Plugin) Execute() error {
 	}
 
 	if p.settings.SkipMissing && !p.settings.IsFile {
-		logrus.Printf("comment skipped: 'message' is not a valid path or file does not exist while 'skip-missing' is enabled")
+		logrus.Infof("comment skipped: 'message' is not a valid path or file does not exist while 'skip-missing' is enabled")
 		return nil
 	}
 
