@@ -10,7 +10,7 @@ Drone plugin to add comments to GitHub Issues and Pull Requests
 [![Source: GitHub](https://img.shields.io/badge/source-github-blue.svg?logo=github&logoColor=white)](https://github.com/thegeeklab/drone-github-comment)
 [![License: MIT](https://img.shields.io/github/license/thegeeklab/drone-github-comment)](https://github.com/thegeeklab/drone-github-comment/blob/main/LICENSE)
 
-Drone plugin to add comments to GitHub Issues and Pull Requests. You can find the full documentation at You can find the full documentation at [https://drone-plugin-index.geekdocs.de](https://drone-plugin-index.geekdocs.de/plugins/drone-github-comment).
+Drone plugin to add comments to GitHub Issues and Pull Requests. You can find the full documentation at [https://drone-plugin-index.geekdocs.de](https://drone-plugin-index.geekdocs.de/plugins/drone-github-comment).
 
 ## Contributors
 
