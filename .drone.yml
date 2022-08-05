@@ -8,7 +8,7 @@ platform:
 
 steps:
   - name: deps
-    image: golang:1.18
+    image: golang:1.19
     commands:
       - make deps
     volumes:
@@ -16,7 +16,7 @@ steps:
         path: /go
 
   - name: lint
-    image: golang:1.18
+    image: golang:1.19
     commands:
       - make lint
     volumes:
@@ -24,7 +24,7 @@ steps:
         path: /go
 
   - name: test
-    image: golang:1.18
+    image: golang:1.19
     commands:
       - make test
     volumes:
@@ -51,7 +51,7 @@ platform:
 
 steps:
   - name: build
-    image: techknowlogick/xgo:go-1.18.x
+    image: techknowlogick/xgo:go-1.19.x
     commands:
       - make release
 
@@ -105,7 +105,7 @@ platform:
 
 steps:
   - name: build
-    image: golang:1.18
+    image: golang:1.19
     commands:
       - make build
       - ls -l dist/drone-github-comment
@@ -178,7 +178,7 @@ platform:
 
 steps:
   - name: build
-    image: golang:1.18
+    image: golang:1.19
     commands:
       - make build
       - ls -l dist/drone-github-comment
@@ -251,7 +251,7 @@ platform:
 
 steps:
   - name: build
-    image: golang:1.18
+    image: golang:1.19
     commands:
       - make build
       - ls -l dist/drone-github-comment
@@ -456,6 +456,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 15bd1332f8cda7acc28d2295da2df3057db147ef918b4cacaba7ac384df3159b
+hmac: a30d89331412b41e3379c959980093a15b22a8e7f0c7f67bb4003da2c20c9248
 
 ...
