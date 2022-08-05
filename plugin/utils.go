@@ -1,7 +1,6 @@
 package plugin
 
 import (
-	"io/ioutil"
 	"os"
 )
 
@@ -16,7 +15,7 @@ func readStringOrFile(input string) (string, bool, error) {
 	} else if err != nil {
 		return "", false, err
 	}
-	result, err := ioutil.ReadFile(input)
+	result, err := os.ReadFile(input)
 	if err != nil {
 		return "", true, err
 	}
