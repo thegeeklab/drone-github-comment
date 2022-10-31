@@ -6,7 +6,7 @@ require (
 	github.com/google/go-github/v39 v39.2.0
 	github.com/joho/godotenv v1.4.0
 	github.com/sirupsen/logrus v1.9.0
-	github.com/thegeeklab/drone-plugin-lib/v2 v2.1.0
+	github.com/thegeeklab/drone-plugin-lib/v2 v2.2.0
 	github.com/urfave/cli/v2 v2.23.0
 	golang.org/x/oauth2 v0.1.0
 )
