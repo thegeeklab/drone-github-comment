@@ -1,4 +1,14 @@
-FROM arm64v8/alpine:3.17@sha256:41d876d4e44348d1c27445fdb0e64592e0eb926d4dbbcf09a3526dee7e628329
+FROM --platform=$BUILDPLATFORM golang:1.19@sha256:bb9811fad43a7d6fd2173248d8331b2dcf5ac9af20976b1937ecd214c5b8c383 as build
+
+ARG TARGETOS
+ARG TARGETARCH
+
+ADD . /src
+WORKDIR /src
+
+RUN make build
+
+FROM alpine:3.17@sha256:f271e74b17ced29b915d351685fd4644785c6d1559dd1f2d4189a5e851ef753a
 
 LABEL maintainer="Robert Kaussow <mail@thegeeklab.de>"
 LABEL org.opencontainers.image.authors="Robert Kaussow <mail@thegeeklab.de>"
@@ -7,6 +17,5 @@ LABEL org.opencontainers.image.url="https://github.com/thegeeklab/drone-github-c
 LABEL org.opencontainers.image.source="https://github.com/thegeeklab/drone-github-comment"
 LABEL org.opencontainers.image.documentation="https://github.com/thegeeklab/drone-github-comment"
 
-ADD dist/drone-github-comment /bin/
-
+COPY --from=build /src/dist/drone-github-comment /bin/drone-github-comment
 ENTRYPOINT ["/bin/drone-github-comment"]
