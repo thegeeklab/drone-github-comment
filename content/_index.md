@@ -19,6 +19,10 @@ Drone plugin to add comments to GitHub Issues and Pull Requests.
 
 ## Usage
 
+{{< hint type=note >}}
+Only pull request events are supported by this plugin. Running the plugin on other events will result in an error.
+{{< /hint >}}
+
 ```YAML
 kind: pipeline
 name: default
