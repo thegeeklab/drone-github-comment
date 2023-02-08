@@ -3,6 +3,7 @@ package plugin
 import (
 	"context"
 	"crypto/sha256"
+	"errors"
 	"fmt"
 	"net/url"
 	"strings"
@@ -26,12 +27,14 @@ type Settings struct {
 	baseURL *url.URL
 }
 
+var ErrPluginEventNotSupported = errors.New("event not supported")
+
 // Validate handles the settings validation of the plugin.
 func (p *Plugin) Validate() error {
 	var err error
 
 	if p.pipeline.Build.Event != "pull_request" {
-		return fmt.Errorf("github comment plugin is only available for pull requests")
+		return fmt.Errorf("%w: %s", ErrPluginEventNotSupported, p.pipeline.Build.Event)
 	}
 
 	if p.settings.Message != "" {
@@ -43,6 +46,7 @@ func (p *Plugin) Validate() error {
 	if !strings.HasSuffix(p.settings.BaseURL, "/") {
 		p.settings.BaseURL += "/"
 	}
+
 	p.settings.baseURL, err = url.Parse(p.settings.BaseURL)
 	if err != nil {
 		return fmt.Errorf("failed to parse base url: %w", err)
@@ -53,6 +57,7 @@ func (p *Plugin) Validate() error {
 		hash := sha256.Sum256([]byte(key))
 		p.settings.Key = fmt.Sprintf("%x", hash)
 	}
+
 	if p.settings.Key, _, err = readStringOrFile(p.settings.Key); err != nil {
 		return fmt.Errorf("error while reading %s: %w", p.settings.Key, err)
 	}
@@ -71,9 +76,8 @@ func (p *Plugin) Execute() error {
 	client := github.NewClient(tc)
 	client.BaseURL = p.settings.baseURL
 
-	cc := commentClient{
+	commentClient := commentClient{
 		Client:   client,
-		Context:  p.network.Context,
 		Repo:     p.pipeline.Repo.Name,
 		Owner:    p.pipeline.Repo.Owner,
 		Message:  p.settings.Message,
@@ -84,10 +88,11 @@ func (p *Plugin) Execute() error {
 
 	if p.settings.SkipMissing && !p.settings.IsFile {
 		logrus.Infof("comment skipped: 'message' is not a valid path or file does not exist while 'skip-missing' is enabled")
+
 		return nil
 	}
 
-	err := cc.issueComment()
+	err := commentClient.issueComment(p.network.Context)
 	if err != nil {
 		return fmt.Errorf("failed to create or update comment: %w", err)
 	}
