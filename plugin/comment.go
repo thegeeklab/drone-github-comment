@@ -18,32 +18,33 @@ type commentClient struct {
 	IssueNum int
 
 	*github.Client
-	context.Context
 }
 
-func (cc *commentClient) issueComment() error {
-	var err error
-	var comment *github.IssueComment
-	var resp *github.Response
+func (cc *commentClient) issueComment(ctx context.Context) error {
+	var (
+		err     error
+		comment *github.IssueComment
+		resp    *github.Response
+	)
 
-	ic := &github.IssueComment{
+	issueComment := &github.IssueComment{
 		Body: &cc.Message,
 	}
 
 	if cc.Update {
 		// Append plugin comment ID to comment message so we can search for it later
 		message := fmt.Sprintf("%s\n<!-- id: %s -->\n", cc.Message, cc.Key)
-		ic.Body = &message
+		issueComment.Body = &message
 
-		comment, err = cc.comment()
+		comment, err = cc.comment(ctx)
 
 		if err == nil && comment != nil {
-			_, resp, err = cc.Client.Issues.EditComment(cc.Context, cc.Owner, cc.Repo, int64(*comment.ID), ic)
+			_, resp, err = cc.Client.Issues.EditComment(ctx, cc.Owner, cc.Repo, *comment.ID, issueComment)
 		}
 	}
 
 	if err == nil && resp == nil {
-		_, _, err = cc.Client.Issues.CreateComment(cc.Context, cc.Owner, cc.Repo, cc.IssueNum, ic)
+		_, _, err = cc.Client.Issues.CreateComment(ctx, cc.Owner, cc.Repo, cc.IssueNum, issueComment)
 	}
 
 	if err != nil {
@@ -53,21 +54,23 @@ func (cc *commentClient) issueComment() error {
 	return nil
 }
 
-func (cc *commentClient) comment() (*github.IssueComment, error) {
+func (cc *commentClient) comment(ctx context.Context) (*github.IssueComment, error) {
 	var allComments []*github.IssueComment
 
 	opts := &github.IssueListCommentsOptions{}
 
 	for {
-		comments, resp, err := cc.Client.Issues.ListComments(cc.Context, cc.Owner, cc.Repo, cc.IssueNum, opts)
+		comments, resp, err := cc.Client.Issues.ListComments(ctx, cc.Owner, cc.Repo, cc.IssueNum, opts)
 		if err != nil {
 			return nil, err
 		}
 
 		allComments = append(allComments, comments...)
+
 		if resp.NextPage == 0 {
 			break
 		}
+
 		opts.Page = resp.NextPage
 	}
 
@@ -77,5 +80,6 @@ func (cc *commentClient) comment() (*github.IssueComment, error) {
 		}
 	}
 
+	//nolint:nilnil
 	return nil, nil
 }

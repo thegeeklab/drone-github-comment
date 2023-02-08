@@ -8,7 +8,7 @@ platform:
 
 steps:
   - name: deps
-    image: golang:1.19
+    image: golang:1.20
     commands:
       - make deps
     volumes:
@@ -16,7 +16,7 @@ steps:
         path: /go
 
   - name: lint
-    image: golang:1.19
+    image: golang:1.20
     commands:
       - make lint
     volumes:
@@ -24,7 +24,7 @@ steps:
         path: /go
 
   - name: test
-    image: golang:1.19
+    image: golang:1.20
     commands:
       - make test
     volumes:
@@ -51,7 +51,7 @@ platform:
 
 steps:
   - name: build
-    image: techknowlogick/xgo:go-1.19.x
+    image: techknowlogick/xgo:go-1.20.x
     commands:
       - ln -s /drone/src /source
       - make release
@@ -292,6 +292,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: c5eae238c271670e51fb5c1b72eaa9d1824225d6c16de564bf8a5cbb57117d61
+hmac: 02262ad1b4da3f7b339e9eb03bf0672634bcb0084b95a8eab127e881f0cb774a
 
 ...
