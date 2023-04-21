@@ -3,7 +3,7 @@ module github.com/thegeeklab/drone-github-comment
 go 1.20
 
 require (
-	github.com/google/go-github/v51 v51.0.0
+	github.com/google/go-github/v52 v52.0.0
 	github.com/joho/godotenv v1.5.1
 	github.com/sirupsen/logrus v1.9.0
 	github.com/thegeeklab/drone-plugin-lib/v2 v2.3.2
