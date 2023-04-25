@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/google/go-github/v51/github"
+	"github.com/google/go-github/v52/github"
 )
 
 // Release holds ties the drone env data and github client together.
